@@ -76,9 +76,14 @@ def greedy_cow_transport(cows,limit=10):
             tuple_cows.remove(i)
     return cowlists
 
-    pass
-cows = load_cows('ps1_cow_data.txt')
-print(greedy_cow_transport(cows,10))
+
+# cows = load_cows('ps1_cow_data.txt')
+# print(greedy_cow_transport(cows,10))
+
+# listocows =[]
+# for partition in get_partitions([1,2,3]):
+#     print(partition)
+#     listocows.append(partition)
 
 
 # Problem 3
@@ -104,8 +109,36 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
-    pass
-        
+    copycows = cows.copy()  #copy of the cow dictionary
+    namelist = []
+    listocows = []  #store all permutations in this list
+    bestrun = []    #store list of the best run
+    ''' How does the iteration work here?
+    for name in copycows:
+        namelist.append(name)
+    for partition in get_partitions(namelist):
+        listocows.append(partition)
+    for i in range(1,len(listocows),11000):
+        print(listocows[i])
+        '''
+    # for name in copycows:
+    #     namelist.append(name)
+    for partition in get_partitions(copycows):
+        listocows.append(partition)
+    for i in range(1,len(listocows),11000):
+        print(listocows[i], len(listocows[i]))
+    
+    # look at each scenario individually
+    # The scenarios consist of trips and the trips consist of cows
+    # if any trip weighs more than the limit then the entire scenario can be discarded
+    #
+    # we need to save number of trips and manifest. Anytime we run a sim with fewer trips it will 
+    # replace the best
+    # for scenario in listocows:
+
+    # pass
+cows = load_cows('ps1_cow_data.txt')
+brute_force_cow_transport(cows,10)  
 # Problem 4
 def compare_cow_transport_algorithms():
     """
