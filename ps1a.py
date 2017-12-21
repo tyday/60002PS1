@@ -59,23 +59,26 @@ def greedy_cow_transport(cows,limit=10):
     # TODO: Your code here
     tuple_cows = sorted(cows.items(), key = lambda x:x[1])
     tuple_cows.reverse()
-    print(tuple_cows)
+    #print(tuple_cows) useful for debugging
     cowlists = []
     # run this while there are cows to transport and they are at limit or under
     while len(tuple_cows) > 0: # this doesn't check to see if cows are overweight(How??)
         startweight = 0
         cowlist = []
+        remlist = []
         for cow in tuple_cows:
             if int(cow[1]) + startweight <= limit:
                 startweight += int(cow[1])
                 cowlist.append(cow[0])
-                tuple_cows.remove(cow)
+                remlist.append(cow)
         cowlists.append(cowlist)
-    print(cowlists)
+        for i in remlist:
+            tuple_cows.remove(i)
+    return cowlists
 
     pass
 cows = load_cows('ps1_cow_data.txt')
-greedy_cow_transport(cows,10)
+print(greedy_cow_transport(cows,10))
 
 
 # Problem 3
