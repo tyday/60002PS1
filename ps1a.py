@@ -57,7 +57,26 @@ def greedy_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    tuple_cows = sorted(cows.items(), key = lambda x:x[1])
+    tuple_cows.reverse()
+    print(tuple_cows)
+    cowlists = []
+    # run this while there are cows to transport and they are at limit or under
+    while len(tuple_cows) > 0: # this doesn't check to see if cows are overweight(How??)
+        startweight = 0
+        cowlist = []
+        for cow in tuple_cows:
+            if int(cow[1]) + startweight <= limit:
+                startweight += int(cow[1])
+                cowlist.append(cow[0])
+                tuple_cows.remove(cow)
+        cowlists.append(cowlist)
+    print(cowlists)
+
     pass
+cows = load_cows('ps1_cow_data.txt')
+greedy_cow_transport(cows,10)
+
 
 # Problem 3
 def brute_force_cow_transport(cows,limit=10):
