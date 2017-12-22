@@ -108,7 +108,6 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
     copycows = cows.copy()  #copy of the cow dictionary
     scenariolist = []  #store all permutations in this list
     bestrun = []    #store list of the best run
@@ -117,25 +116,10 @@ def brute_force_cow_transport(cows,limit=10):
         '''
     for partition in get_partitions(copycows):
         scenariolist.append(partition)
-    # for i in range(1,len(listocows),11000):
-    #     print(listocows[i], len(listocows[i]))
-    
     # look at each scenario individually
     # The scenarios consist of trips and the trips consist of cows
     # if any trip weighs more than the limit then the entire scenario can be discarded
-    #
-    # we need to save number of trips and manifest. Anytime we run a sim with fewer trips it will 
-    # replace the best
-    # for scenario in listocows:
-    #     tot_weight = 0
-    #     for trip in scenario:
-    #         for cow in trip:
-    #             tot_weight += copycows[cow]
-
-    # cows = load_cows('ps1_cow_data_short.txt')
-    # scenariolist = brute_force_cow_transport(cows,10) <-------kill me
     scraptrip = False
-    # while scraptrip == False: 
     bestrun = [] 
     for scenario in range(1,len(scenariolist), 1):
         scraptrip = False
@@ -145,7 +129,7 @@ def brute_force_cow_transport(cows,limit=10):
             tot_weight = 0
             for cow in trip:
                 tot_weight += int(cows[cow])
-            if tot_weight > 10:
+            if tot_weight > limit:
                 scraptrip = True
                 break
         if scraptrip == False:
@@ -154,8 +138,9 @@ def brute_force_cow_transport(cows,limit=10):
             elif len(scenariolist[scenario]) < len(bestrun):
                 bestrun = scenariolist[scenario]
     return bestrun
-cows = load_cows('ps1_cow_data.txt')
-print( brute_force_cow_transport (cows,10))
+
+# cows = load_cows('ps1_cow_data.txt')
+# print( brute_force_cow_transport (cows,10))
 # Problem 4
 def compare_cow_transport_algorithms():
     """
@@ -170,5 +155,15 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    cows = load_cows('ps1_cow_data.txt')
+    start = time.time()
+    scen = (greedy_cow_transport(cows,10))
+    end = time.time()
+    print('Time:', str(end-start), len(scen), scen)
+    start = time.time()
+    scen = brute_force_cow_transport(cows, 10)
+    end = time.time()
+    print('Time:', '{:.2f}'.format((end-start)), len(scen),scen)
+
+
+compare_cow_transport_algorithms()
