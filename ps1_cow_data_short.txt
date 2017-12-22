@@ -1,0 +1,4 @@
+Maggie,3
+Herman,7
+Betsy,9
+Henrietta,9
