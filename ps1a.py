@@ -110,23 +110,15 @@ def brute_force_cow_transport(cows,limit=10):
     """
     # TODO: Your code here
     copycows = cows.copy()  #copy of the cow dictionary
-    namelist = []
-    listocows = []  #store all permutations in this list
+    scenariolist = []  #store all permutations in this list
     bestrun = []    #store list of the best run
     ''' How does the iteration work here?
-    for name in copycows:
-        namelist.append(name)
-    for partition in get_partitions(namelist):
-        listocows.append(partition)
-    for i in range(1,len(listocows),11000):
-        print(listocows[i])
+    
         '''
-    # for name in copycows:
-    #     namelist.append(name)
     for partition in get_partitions(copycows):
-        listocows.append(partition)
-    for i in range(1,len(listocows),11000):
-        print(listocows[i], len(listocows[i]))
+        scenariolist.append(partition)
+    # for i in range(1,len(listocows),11000):
+    #     print(listocows[i], len(listocows[i]))
     
     # look at each scenario individually
     # The scenarios consist of trips and the trips consist of cows
@@ -135,10 +127,35 @@ def brute_force_cow_transport(cows,limit=10):
     # we need to save number of trips and manifest. Anytime we run a sim with fewer trips it will 
     # replace the best
     # for scenario in listocows:
+    #     tot_weight = 0
+    #     for trip in scenario:
+    #         for cow in trip:
+    #             tot_weight += copycows[cow]
 
-    # pass
+    # cows = load_cows('ps1_cow_data_short.txt')
+    # scenariolist = brute_force_cow_transport(cows,10) <-------kill me
+    scraptrip = False
+    # while scraptrip == False: 
+    bestrun = [] 
+    for scenario in range(1,len(scenariolist), 1):
+        scraptrip = False
+        for trip in scenariolist[scenario]:
+            if scraptrip == True:
+                break
+            tot_weight = 0
+            for cow in trip:
+                tot_weight += int(cows[cow])
+            if tot_weight > 10:
+                scraptrip = True
+                break
+        if scraptrip == False:
+            if bestrun == []:
+                bestrun = scenariolist[scenario]
+            elif len(scenariolist[scenario]) < len(bestrun):
+                bestrun = scenariolist[scenario]
+    return bestrun
 cows = load_cows('ps1_cow_data.txt')
-brute_force_cow_transport(cows,10)  
+print( brute_force_cow_transport (cows,10))
 # Problem 4
 def compare_cow_transport_algorithms():
     """
