@@ -106,7 +106,7 @@ def brute_force_cow_transport(cows,limit=10):
     Returns:
     A list of lists, with each inner list containing the names of cows
     transported on a particular trip and the overall list containing all the
-    trips
+    trips  
     """
     copycows = cows.copy()  #copy of the cow dictionary
     scenariolist = []  #store all permutations in this list

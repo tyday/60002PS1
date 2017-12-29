@@ -33,18 +33,17 @@ def dp_make_weight(egg_weights, target_weight, memo = {}):
     else:
         nextItem = egg_weights[0]
         #Explore left branch
-        withVal, withToTake = dp_make_weight(egg_weights[1:],
-                                             target_weight - nextItem, memo)
+        withVal, withToTake = dp_make_weight(egg_weights[1:], target_weight - nextItem, memo)
         withVal += nextItem
         #Explore right branch
-        withoutVal, withoutToTake = dp_make_weight(egg_weights[1:],
-                                                    target_weight, memo)
+        withoutVal, withoutToTake = dp_make_weight(egg_weights[1:], target_weight, memo)
         #choose better branch
         if withVal > withoutVal:
             result = (withVal, withToTake + (nextItem,))
         else:
             result = (withoutVal, withoutToTake)
-    memo[len(egg_weights), target_weight] = result
+    memo[(len(egg_weights), target_weight)] = result
+    print(result)
     return result
     
 
